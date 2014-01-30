@@ -12,8 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from accumulators.statistics.count import Count
-from accumulators.statistics.mean import ImmediateMean, Mean
+from __future__ import absolute_import, division
+
+from accumulators.accumulator_base import AccumulatorBase
 from accumulators.statistics.moment import Moment
-from accumulators.statistics.sum import Sum
-from accumulators.statistics.variance import Variance
+
+
+class Variance(AccumulatorBase):
+
+    depends_on = ['accumulators.statistics.Mean', Moment(2)]
+
+    def value(self):
+        mean = self.accumulator_set.mean()
+        return self.accumulator_set.moment2() - (mean * mean)
