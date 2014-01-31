@@ -15,5 +15,5 @@
 from accumulators.statistics.count import Count
 from accumulators.statistics.mean import ImmediateMean, Mean
 from accumulators.statistics.moment import Moment
-from accumulators.statistics.sum import Sum
+from accumulators.statistics.sum import Sum, SumPow
 from accumulators.statistics.variance import Variance

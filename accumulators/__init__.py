@@ -12,4 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from accumulator_set import AccumulatorSet
+from accumulators.accumulator_set import AccumulatorSet
+
+
+__author__ = 'Arnaud Porterie'
+__license__ = 'Apache 2.0'
+__version__ = '1.0.0'
