@@ -1,7 +1,7 @@
 Accumulators
 =======
 
-[![Build Status](https://travis-ci.org/icecrime/Accumulators.png)](https://travis-ci.org/icecrime/Accumulators)
+[![Build Status](https://travis-ci.org/icecrime/Accumulators.png)](https://travis-ci.org/icecrime/Accumulators) [![Coverage Status](https://coveralls.io/repos/icecrime/Accumulators/badge.png)](https://coveralls.io/r/icecrime/Accumulators)
 
 Overview
 -------------
