@@ -17,7 +17,7 @@ setup(
     author_email='icecrime@gmail.com',
     url='https://github.com/icecrime/Accumulators',
 
-    packages=['accumulators'],
+    packages=['accumulators', 'accumulators.statistics'],
     package_data={'': ['LICENSE']},
     package_dir={'accumulators': 'accumulators'},
 

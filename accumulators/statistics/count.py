@@ -22,9 +22,9 @@ The computed accumulator is made available on the AccumulatorSet under the
 camelCased attribute name 'count'.
 """
 
-from accumulators.decorator import accumulator
+from accumulators.decorator import Accumulator
 
 
-@accumulator()
-def Count(accumulator_set, value, datum):
+@Accumulator.immediate()
+def count(accumulator_set, value, datum):
     return value + 1

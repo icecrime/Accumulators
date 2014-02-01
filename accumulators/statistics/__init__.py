@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from accumulators.statistics.count import Count
-from accumulators.statistics.mean import ImmediateMean, Mean
-from accumulators.statistics.moment import Moment
-from accumulators.statistics.sum import Sum, SumPow
-from accumulators.statistics.variance import Variance
+from accumulators.statistics.count import count
+from accumulators.statistics.mean import immediate_mean, mean
+from accumulators.statistics.moment import moment
+from accumulators.statistics.sum import sum, sumpow
+from accumulators.statistics.variance import variance

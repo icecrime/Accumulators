@@ -12,32 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import, division
+from __future__ import division
 
-from accumulators.accumulator_base import AccumulatorBase
-from accumulators.statistics.sum import SumPow
+from accumulators.decorator import Accumulator
+from accumulators.statistics.sum import sumpow
 
 
-def Moment(order):
-    """Moment function generates an accumulator implementation according to the
-    specified order. The return accumulator type produces its value upon
-    extraction time exclusively.
-    """
+def moment(n):
+    depends_on = ['accumulators.statistics.count', sumpow(n)]
+    result_name = 'moment{}'.format(n)
 
-    class MomentImpl(AccumulatorBase):
+    @Accumulator.lazy(result_name=result_name, depends_on=depends_on)
+    def moment_n(accumulator_set):
+        count = accumulator_set.count()
+        if count == 0:
+            return 0
+        return getattr(accumulator_set, sumpow(n).value_identifier)() / count
 
-        # The moment calculation depends on the count, and the sum of values
-        # raised to the appropriate power (i.e.: moment of order 2 is the sum
-        # of squares divded by the count).
-        depends_on = ['accumulators.statistics.Count', SumPow(order)]
-
-        # The accumulator result is identified by 'momentX' where X is the
-        # statistics order.
-        value_identifier = 'moment{}'.format(order)
-
-        def value(self):
-            sumPowAttr = SumPow(order).value_identifier
-            return (getattr(self.accumulator_set, sumPowAttr)() /
-                        self.accumulator_set.count())
-
-    return MomentImpl
+    return moment_n

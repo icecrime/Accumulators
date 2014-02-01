@@ -22,16 +22,19 @@ The computed accumulator is made available on the AccumulatorSet under the
 camelCased attribute name 'sum'.
 """
 
-from accumulators.decorator import accumulator
+from accumulators.decorator import Accumulator
 
 
-@accumulator()
-def Sum(accumulator_set, value, datum):
+@Accumulator.immediate()
+def sum(accumulator_set, value, datum):
     return value + datum
 
 
-def SumPow(power):
-    @accumulator(result_name='sumPow{}'.format(power))
-    def _impl(accumulator_set, value, datum):
-        return value + pow(datum, power)
-    return _impl
+def sumpow(n):
+    result_name = 'sumpow{}'.format(n)
+
+    @Accumulator.immediate(result_name=result_name)
+    def sumpow_n(accumulator_set, value, datum):
+        return value + pow(datum, n)
+
+    return sumpow_n

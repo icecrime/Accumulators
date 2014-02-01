@@ -13,7 +13,7 @@ Usage
 -------------
 
     >>> from accumulators import AccumulatorSet, statistics
-    >>> accu_set = AccumulatorSet([statistics.Mean, statistics.Count])
+    >>> accu_set = AccumulatorSet(statistics.mean, statistics.count)
     >>> accu_set(1.1)(4.2)(12.8)
     <accumulators.accumulator_set.AccumulatorSet object at 0x1059b1bd0>
     >>> accu_set.mean()

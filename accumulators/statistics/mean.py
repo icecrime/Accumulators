@@ -24,27 +24,25 @@ camelCased attribute name 'mean'.
 
 from __future__ import division
 
-from accumulators.accumulator_base import AccumulatorBase
-from accumulators.decorator import accumulator
+from accumulators.decorator import Accumulator
 
 
-@accumulator(result_name='mean', starting_value=1,
-             depends_on=['accumulators.statistics.Count'])
-def ImmediateMean(accumulator_set, value, datum):
+@Accumulator.immediate(result_name='mean',
+                       depends_on=['accumulators.statistics.count'])
+def immediate_mean(accumulator_set, value, datum):
     """ImmediateMean updates the mean with each new datum rather than reyling
     on the sum and count upon extraction.
     """
     count = accumulator_set.count()
-    return (value * (count - 1) + datum) / count
+    return 0 if count == 0 else (value * (count - 1) + datum) / count
 
 
-class Mean(AccumulatorBase):
-    """Mean accumulator produces its result at extraction time excusively."""
-
-    depends_on = [
-        'accumulators.statistics.Count',
-        'accumulators.statistics.Sum'
-    ]
-
-    def value(self):
-        return self.accumulator_set.sum() / self.accumulator_set.count()
+@Accumulator.lazy(result_name='mean',
+                  depends_on=['accumulators.statistics.count',
+                              'accumulators.statistics.sum'])
+def mean(accumulator_set):
+    """Mean is a lazy implementation which computes the statistics at
+    extraction time only.
+    """
+    count = accumulator_set.count()
+    return 0 if count == 0 else accumulator_set.sum() / count

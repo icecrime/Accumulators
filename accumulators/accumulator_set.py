@@ -17,10 +17,11 @@ import sys
 
 class AccumulatorSet(object):
 
-    def __init__(self, accumulators):
+    def __init__(self, *accumulators):
         self.accumulators = []
         self.accumulators_types = set()
-        [self._register_accumulator(accu) for accu in accumulators]
+        for accumulator in accumulators:
+            self._register_accumulator(accumulator)
 
     def __call__(self, datum, weight=1.):
         # Forward the provided datum to each registered accumulator.

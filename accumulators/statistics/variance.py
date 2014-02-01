@@ -12,16 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import absolute_import, division
+from __future__ import division
 
-from accumulators.accumulator_base import AccumulatorBase
-from accumulators.statistics.moment import Moment
+from accumulators.decorator import Accumulator
+from accumulators.statistics.moment import moment
 
 
-class Variance(AccumulatorBase):
-
-    depends_on = ['accumulators.statistics.Mean', Moment(2)]
-
-    def value(self):
-        mean = self.accumulator_set.mean()
-        return self.accumulator_set.moment2() - (mean * mean)
+@Accumulator.lazy(depends_on=['accumulators.statistics.mean', moment(2)])
+def variance(accumulator_set):
+    mean = accumulator_set.mean()
+    return accumulator_set.moment2() - (mean * mean)
